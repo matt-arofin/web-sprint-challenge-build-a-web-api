@@ -3,15 +3,20 @@ const server = express();
 
 // Configure your server here
 // Build your actions router in /api/actions/actions-router.js
-const Actions = require('./actions/actions-router');
+const actionsRouter = require('./actions/actions-router');
+// server.get('/api/actions', Actions)
+
 // Build your projects router in /api/projects/projects-router.js
-const Projects = require('./projects/projects-router');
+const projectsRouter = require('./projects/projects-router');
+server.use('/api/projects', projectsRouter);
 
 server.use(express.json());
 
+
+
 server.get('/', (req, res) => {
-    console.log()
-    res.send(`<h1>`)
+    console.log(req.method, req.originalUrl)
+    res.send(`<h1>Unit 4 Sprint 1: Raring to go</h1>`);
 })
 
 // Do NOT `server.listen()` inside this file!
