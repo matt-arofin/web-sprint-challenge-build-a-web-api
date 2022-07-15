@@ -23,10 +23,14 @@ router.get('/:id', validateProjectId, (req, res) => {
     const id = req.params.id;
 
     Model.get(id).then(project => {
-        res.status(200).json(project)
+        if(project) {
+            res.status(200).json(project)
+        } else {
+            res.status(404).json({message: "This ID does not exist"})
+        }
     }).catch(err => {
         console.error(err);
-
+        res.status()
     })
 });
 
