@@ -19,8 +19,8 @@ function validateProjectId(req, res, next){
 function validateReqBody(req, res, next){
     const body = req.body;
     // console.log("post middleware req: ", req)
-    console.log("Post request body: ", body)
-    if(!body.name || !body.description){
+    // console.log("Post request body: ", body)
+    if(!body.name || !body.description || body.completed === undefined){
         res.status(400).json({message: "The request body needs a name, description and completed status"})
     } else {
         next()

@@ -61,9 +61,20 @@ router.put('/:id', validateProjectId, validateReqBody, (req, res) => {
 })
 
 // DELETE
-// router.delete('/:id', (req, res) => {
-    
-// })
+router.delete('/:id', validateProjectId, (req, res) => {
+    const id = req.id;
+
+    Model.remove(id).then(deleted => {
+        if(!deleted){
+            res.status(404).json({message: "The id was not found"})
+        } else {
+            res.status(204).json({message: "The project was successfully deleted"})
+        }
+    }).catch(err => {
+        console.error(err);
+        res.status(500).json({message: "There was an error deleting this post"})
+    })
+})
 
 // GET
 // router.get('/:id/actions', (req, res) => {
