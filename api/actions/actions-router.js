@@ -45,13 +45,28 @@ router.post('/', validateActionBody, (req, res) => {
 });
 
 // PUT :id
-// router.put('/:id', (req, res) => {
+router.put('/:id', validateActionId, validateActionBody, (req, res) => {
+    const changes = req.body;
+    const id = req.id;
 
-// });
+    Model.update(id, changes).then(update => {
+        res.status(200).json(update);
+    }).catch(err => {
+        console.error(err);
+        res.status(500).json({message: "There was an error updating this action"})
+    })
+});
 
 // DELETE :id
-// router.delete('/:id', (req, res) => {
+router.delete('/:id', validateActionId, (req, res) => {
+    const id = req.id;
 
-// });
+    Model.remove(id).then(deleted => {
+        res.status(204).json(deleted)
+    }).catch(err => {
+        console.error(err);
+        res.status(500).json({message: "There was an error deleting this action"})
+    })
+});
 
 module.exports = router;
